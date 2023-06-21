@@ -12,7 +12,7 @@ ui_page 'html/hud.html'
 
 shared_scripts {
     '@es_extended/locale.lua',
-    'locales.lua',
+    'locales/*',
     'config.lua'
 }
 
