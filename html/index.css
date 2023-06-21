@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+
+
+.speedometer {
+    position: absolute;
+    bottom: 19.2%; 
+    left: 1.5%;
+}
+
+.gasometer {
+    position: absolute;
+    bottom: 19.2%; 
+    left: 8.55%;
+}
+
+
+i { color: white; margin-left: 5%; font-size: 17px;}
+.speed { text-align: center; font-family: ubuntu; color: white; font-size: 20px;}
+.gasoline { text-align: center; font-family: ubuntu; color: white; font-size: 20px;}
+.derivados{ text-align: center; font-family: ubuntu; color: white; font-size: 15px;}
+
+.boxes-spd {
+    height: 10%; width: 12.5vh; background-color: rgba(50, 50, 50, 0.75); border-top-left-radius: 10px;
+}
+
+.boxes-spdgas {
+    height: 10%; width: 12.5vh; background-color: rgba(50, 50, 50, 0.75); border-top-right-radius: 10px;
+}
