@@ -92,6 +92,42 @@ end)
 
 
 
+RegisterNetEvent('jozocar:Locks', function(plate)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    
+    local isOwned = MySQL.Sync.fetchScalar('SELECT 1 FROM owned_vehicles WHERE plate = "'..plate..'" AND owner = "'..xPlayer.identifier..'"')
+    if isOwned then
+        if xPlayer.getMoney() >= Config.Price then
+            xPlayer.removeMoney(Config.Price)
+        elseif xPlayer.getAccount('bank').money >= Config.Price then
+            xPlayer.removeAccountMoney('bank', Config.Price)
+        else
+            xPlayer.showNotification(_U('not_enough_money'))
+            return
+        end
+        xPlayer.showNotification(_U('paid_for_locks', Config.Price))
+        xPlayer.showNotification(_U('wait_new_locks'))
+        TriggerClientEvent('progressBars:StartUI', xPlayer.source, 30000, _U('installing_new_locks'))
+        FreezeEntityPosition(GetPlayerPed(xPlayer.source), true)
+        local playersVeh = GetVehiclePedIsIn(GetPlayerPed(xPlayer.source))
+        FreezeEntityPosition(playersVeh, true)
+        Wait(30000)
+        FreezeEntityPosition(GetPlayerPed(xPlayer.source), false)
+        FreezeEntityPosition(playersVeh, false)
+        MySQL.Async.execute('UPDATE owned_vehicles SET peopleWithKeys = "[]" WHERE plate = "'..plate..'"', {}, function(rowsUpdated)
+            if rowsUpdated > 0 then
+                xPlayer.showNotification(_('locks_replaced'))
+                vehiclesCache[plate] = {}
+                vehiclesCache[plate][xPlayer.identifier] = true
+            end
+        end)
+    else
+        xPlayer.showNotification(_U('not_yours_vehicle'))
+    end
+end)
+
+
 
 
 
@@ -136,3 +172,4 @@ RegisterNetEvent('jozocar:NewLock', function(plate)
         xPlayer.showNotification(_U('not_yours_vehicle'))
     end
 end)
+
