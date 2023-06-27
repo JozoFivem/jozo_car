@@ -14,7 +14,8 @@ RegisterCommand('lockvehicle', function()
         Wait(100)
         TriggerServerEvent('jozocar:VehicleLock', VehToNet(vehicle), GetVehicleDoorLockStatus(vehicle))
     else
-        ESX.ShowNotification(_U('no_vehicle_found'))
+        ESX.ShowNotification = function(message, type)
+            exports["jozo_notify"]:TriggerNotification({ ['type'] = car-front, ['message'] = (_U('no_vehicle_found')) })
     end
 end)
 
@@ -52,7 +53,8 @@ Citizen.CreateThread(function()
                         TriggerServerEvent('jozocar:Locks', GetVehicleNumberPlateText(veh))
                         Wait(5000)
                     else
-                        ESX.ShowNotification(_U('must_in_vehicle'))
+                        ESX.ShowNotification = function(message, type)
+                            exports["jozo_notify"]:TriggerNotification({ ['type'] = car-front, ['message'] = (_U('must_in_vehicle'))})
                     end
                 end
             end

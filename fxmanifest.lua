@@ -6,7 +6,7 @@ author 'Jozo_85#2261'
 
 description 'Car | Free to use'
 
-version '1.0.1'
+version '1.1.0'
 
 ui_page 'html/hud.html'
 
